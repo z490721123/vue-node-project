@@ -25,8 +25,8 @@
                 <td v-if="list.a_expiretime == '1970-01-01 08:00:00'">非会员</td>
                 <td v-else>{{list.a_expiretime}}</td>
                 <td>{{list.a_agentcount}}</td>
-                <td v-if="list.r_ip == ''">无</td>
-                <td v-else>{{list.r_ip}}</td>
+                <td v-if="list.r_ip">{{list.r_ip}}</td>
+                <td v-else>无</td>
                 <td v-if="list.r_regtime == '1970-01-01 08:00:00'">无</td>
                 <td v-else>{{list.r_regtime}}</td>
               </tr>

@@ -1,15 +1,19 @@
 <template>
-  <section class="login  text-left">
-    <div class="form" @keyup.enter="doLogin">
-      <div class="input-group form-group">
+  <section class="login  text-center">
+    <div class="formi form-inline text-center" @keyup.enter="doLogin">
+      <div class="text-center input-group form-group">
         <span class="input-group-addon glyphicon glyphicon-user" id="basic-addon1"></span>
-        <input type="text" class="form-control" id="userName" placeholder="用户名" aria-describedby="basic-addon1"  v-model.trim="name">
+        <input type="text" style="width:200px;" class="form-control" id="userName" placeholder="用户名" aria-describedby="basic-addon1"  v-model.trim="name" >
       </div>
+      <p>
       <div class="input-group form-group">
         <span class="input-group-addon glyphicon glyphicon-search" aria-hidden="true"></span>
-        <input type="password" class="form-control" id="password" placeholder="密码" aria-describedby="basic-addon1" v-model.trim="pwd">
+        <input type="password" style="width:200px;" class="form-control" id="password" placeholder="密码" aria-describedby="basic-addon1" v-model.trim="pwd">
       </div>
+      <p>
+      <p>
       <button type="submit" class="btn btn-default form-control" @click="doLogin()">登陆</button>
+      <p>
       <div class="alert alert-danger" role="alert" v-if="this.info != ''">{{info}}</div>
     </div>
 
@@ -35,7 +39,7 @@
       this.$http.post('/api/login', {name: this.name.trim(), pwd: this.pwd.trim()}).then(
         response => {
           if(response.body.code == 0){
-            this.$router.push({path: '/MainPage', query : {name: this.name}})
+            this.$router.push({path: '/MainPage/UserData', query : {name: this.name}})
             return;
           }
           this.info = response.body.msg
