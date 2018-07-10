@@ -13,7 +13,7 @@
         <table class="table">
           <thead>
             <tr>
-              <td>ID(a_pid)</td><td>手机号码(a_account)</td><td>会员到期时间(a_expiretime)</td><td>控制端数量(a_agentcount)</td><td>注册IP(r_ip)</td><td>注册时间(r_regtime)</td>
+              <td>ID</td><td>手机号码</td><td>会员到期时间</td><td>控制端数量</td><td>注册IP</td><td>注册时间</td>
             </tr>
 
           </thead>
