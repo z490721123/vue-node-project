@@ -14,7 +14,8 @@ function formatData(rows) {
 module.exports = {
     // 获取商品列表
     selectAll (req, res) {
-        //res.json({code: 200, msg: 'ok', goods: 'aaa'});
+        res.json({code: 200, msg: 'ok', goods: 'aaa'});
+		return;
         func.connPool("select * from tb_account;", '', (err, rows) => {
             //rows = formatData(rows);
             console.log(rows);
