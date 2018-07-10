@@ -5,10 +5,8 @@ var path = require('path');
 
 function formatData(rows) {
     return rows.map(row => {
-        var day = moment.unix(row.a_expiretime);
-        var f = day.format("YYYY-MM-DD hh:mm:ss");
-        console.log(f);
-        row.a_expiretime = f;
+        row.a_expiretime = moment.unix(row.a_expiretime).format("YYYY-MM-DD hh:mm:ss");
+        row.r_regtime = moment.unix(row.r_regtime).format("YYYY-MM-DD hh:mm:ss");
     });
 }
 

@@ -5,6 +5,11 @@ var pool = mysql.createPool(db);
 module.exports = {
     connPool (sql, val, cb) {
         pool.getConnection((err, conn) => {
+            if(err){
+                console.log(err);
+                cb(err, []);
+                return;
+            }
             var q = conn.query(sql, val, (err, rows) => {
 
                 if (err) {
