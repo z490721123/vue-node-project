@@ -41,7 +41,7 @@ module.exports = {
     search (req, res) {
         //res.json({code: 200, msg: 'ok', goods: 'aaa'});
         var telephone = req.body.telephone;
-        var sql = 'select * from tb_account inner join tb_register on tb_account.a_account = tb_register.r_account where tb_account.a_account = ?'
+        var sql = 'select * from tb_account left join tb_register on tb_account.a_account = tb_register.r_account where tb_account.a_account = ?'
         func.connPool(sql, [telephone], (err, rows) => {
             //rows = formatData(rows);
             if(err || !rows || rows.length < 1){
