@@ -17,7 +17,7 @@
             </tr>
 
           </thead>
-          <tbody>
+          <tbody v-if="this.user_list">
             <template v-for="(list, index) in this.user_list">
               <tr>
                 <td>{{list.a_pid}}</td>
@@ -25,8 +25,8 @@
                 <td v-if="list.a_expiretime == '1970-01-01 08:00:00'">非会员</td>
                 <td v-else>{{list.a_expiretime}}</td>
                 <td>{{list.a_agentcount}}</td>
-                <td v-if="list.r_ip">{{list.r_ip}}</td>
-                <td v-else>无</td>
+                <td v-if="list.r_ip == null">无</td>
+                <td v-else>{{list.r_ip}}</td>
                 <td v-if="list.r_regtime == '1970-01-01 08:00:00'">无</td>
                 <td v-else>{{list.r_regtime}}</td>
               </tr>
@@ -102,14 +102,19 @@
         this.$http.post('/api/search', {telephone: this.telephone}).then(
           response => {
             //this.info = response.body.data;
-            this.user_list = response.body.data;
+	    if(response.body.code == 0){
+                this.user_list = response.body.data;
+	    }
+	    else{
+		this.user_list = [];
+	    }
 
             console.log(this.user_list);
 
           },
           response => {
             this.info = response.body.msg;
-            this.data.user_list = [];
+            this.user_list = [];
           }
         )
       },
