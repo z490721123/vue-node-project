@@ -14,6 +14,7 @@ router.post('/search', service.search);
 router.post('/resetpwd', service.resetPwd);
 router.post('/resetexpiretime', service.resetExpiretime);
 router.post('/resetagentcount', service.resetAgentcount);
+router.get('/gettodayreg', service.getTodayReg);
 
 // goods
 //router.get(api.test, res.json({code: 200, msg: 'ok', goods: rows}));

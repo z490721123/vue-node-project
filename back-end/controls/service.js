@@ -67,7 +67,7 @@ module.exports = {
                 res.json({code: 1, msg: 'update error', data: pid});
                 return;
             }
-            res.json({code: 0, msg: 'ok', data: pid});
+            res.json({code: 0, msg: 'ok', data: pwd});
         });
     },
 
@@ -102,6 +102,23 @@ module.exports = {
             }
 
             res.json({code: 0, msg: 'ok', data: agentcount});
+        });
+    },
+
+    getTodayReg (req, res) {
+        var now = moment()
+        var min = now.hours(0).minutes(0).seconds(0).unix()
+        var max = now.hours(24).minutes(59).seconds(59).unix()
+
+        var sql = 'SELECT COUNT(*) as count FROM tb_register WHERE r_regtime >= ? and r_regtime <= ?'
+        func.connPool(sql, [min, max], (err, rows) => {
+            //rows = formatData(rows);
+            if(err){
+                res.json({code: 1, msg: 'update error', data: 0});
+                return;
+            }
+
+            res.json({code: 0, msg: 'ok', data: rows[0].count});
         });
     },
 

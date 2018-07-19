@@ -2,6 +2,15 @@
   <section class="userdata">
     <div class="text-left">
       <div class="form-inline panel panel-primary">
+        <div class="panel-heading">统计</div>
+        <div class="panel-body">
+          <div class="form-group" >
+            <label for="">今天注册人数：{{todayreg}}人</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline panel panel-primary">
         <div class="panel-heading">查询</div>
         <div class="panel-body">
           <div class="form-group" @keyup.enter="doSearch">
@@ -92,25 +101,33 @@
         pwdinfo: '',
         expinfo: '',
         ageinfo: '',
+
+        todayreg: 0,
       }
     },
+    created: function () {
+      this.$http.get('/api/gettodayreg').then(
+        response => {
+          this.todayreg = response.body.data;
+        },
+        response => {
 
+        }
+      )
+    },
     methods: {
       doSearch()
       {
         console.log('doSearch')
         this.$http.post('/api/search', {telephone: this.telephone}).then(
           response => {
-            //this.info = response.body.data;
-	    if(response.body.code == 0){
-                this.user_list = response.body.data;
-	    }
-	    else{
-		this.user_list = [];
-	    }
-
+            if(response.body.code == 0){
+              this.user_list = response.body.data;
+            }
+            else{
+		          this.user_list = [];
+	          }
             console.log(this.user_list);
-
           },
           response => {
             this.info = response.body.msg;
@@ -124,10 +141,15 @@
           console.log("this.user_list.length <= 0");
           return;
         }
-        this.$http.post('/api/resetpwd', {pwd: this.resetpwd, pid: this.user_list[0].a_pid}).then(
+
+        var crypto = require('crypto');
+        var md5 = crypto.createHash('md5');
+        var pass = md5.update(this.resetpwd).digest('hex');
+
+        this.$http.post('/api/resetpwd', {pwd: pass, pid: this.user_list[0].a_pid}).then(
           response => {
             if(response.body.code == 0){
-              this.user_list[0].a_password = this.resetpwd
+              this.user_list[0].a_password = response.body.data
               this.resetpwd = ''
               this.pwdinfo = ''
             }
