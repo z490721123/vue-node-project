@@ -1,0 +1,7 @@
+login: admin admin123
+
+frond-end:  pm2 start start.sh
+
+back-end: pm2 start app.js
+
+use pm2 to manage the project
